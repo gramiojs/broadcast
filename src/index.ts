@@ -1,7 +1,7 @@
-// TODO: re-export this from jobify
-import { Worker } from "bullmq";
 import { TelegramError } from "gramio";
 import { type Job, type OptionsData, initJobify } from "jobify";
+// TODO: re-export this from jobify
+import { Worker } from "jobify/bullmq";
 
 // TODO: replace it
 type Action = Function;
