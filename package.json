@@ -1,7 +1,7 @@
 {
 	"name": "@gramio/broadcast",
-	"version": "0.0.2",
-	"description": "Auto answer callback query plugin for GramIO",
+	"version": "0.0.1",
+	"description": "Broadcast for GramIO",
 	"main": "dist/index.cjs",
 	"module": "dist/index.js",
 	"types": "dist/index.d.ts",
@@ -20,14 +20,13 @@
 	"type": "module",
 	"author": "kravets",
 	"license": "MIT",
-	"readme": "https://gramio.dev/plugins/official/auto-answer-callback-query",
-	"homepage": "https://github.com/gramiojs/auto-answer-callback-query",
+	"readme": "https://gramio.dev/rate-limits",
+	"homepage": "https://github.com/gramiojs/broadcast",
 	"keywords": [
 		"gramio",
 		"gramio-plugin",
-		"auto-answer-callback-query",
-		"callback-query",
-		"answer-callback-query",
+		"broadcast",
+		"mailing",
 		"telegram",
 		"telegram-bot-api"
 	],
@@ -37,14 +36,15 @@
 		"lint:fix": "bun lint --write"
 	},
 	"peerDependencies": {
-		"gramio": ">=0.0.39 <1.0.0"
+		"gramio": ">=0.0.39 <1.0.0",
+		"jobify": "^0.1.4"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
 		"@types/bun": "^1.1.14",
 		"gramio": "^0.1.3",
 		"ioredis": "^5.4.1",
-		"jobify": "^0.1.3",
+		"jobify": "^0.1.4",
 		"pkgroll": "^2.5.1",
 		"typescript": "^5.7.2"
 	},
