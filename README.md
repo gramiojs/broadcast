@@ -39,7 +39,16 @@ await broadcast.start(
 );
 
 // graceful shutdown
-process.on("beforeExit", async () => {
+async function gracefulShutdown() {
+    console.log(`Process ${process.pid} go to sleep`);
+
     await broadcast.job.queue.close();
-});
+
+    console.log("closed");
+    process.exit(0);
+}
+
+process.on("SIGTERM", gracefulShutdown);
+
+process.on("SIGINT", gracefulShutdown);
 ```
