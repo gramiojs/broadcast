@@ -8,5 +8,5 @@
 	"imports": {
 		"gramio": "jsr:@gramio/core@^0.1.3"
 	},
-	"nodeModulesDir": "manual"
+	"nodeModulesDir": "auto"
 }
