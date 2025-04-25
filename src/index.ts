@@ -1,5 +1,10 @@
 import { TelegramError } from "gramio";
-import { type Job, type OptionsData, initJobify } from "jobify";
+import {
+	type DefinedJobsOptions,
+	type Job,
+	type OptionsData,
+	initJobify,
+} from "jobify";
 // TODO: re-export this from jobify
 import { Worker } from "jobify/bullmq";
 
@@ -20,16 +25,36 @@ export class Broadcast<
 	}[] = [];
 	job: Job<{ type: keyof Types; args: any[] }>;
 
-	constructor(redis: Parameters<typeof initJobify>[0], options?: OptionsData) {
+	constructor(
+		redis: Parameters<typeof initJobify>[0],
+		options?: DefinedJobsOptions,
+		workerOptions?: OptionsData,
+	) {
 		const defineJob = initJobify(redis);
 
-		this.job = defineJob("@gramio/broadcast")
+		this.job = defineJob("@gramio/broadcast", {
+			...options,
+			queue: {
+				...options?.queue,
+				defaultJobOptions: {
+					...options?.queue?.defaultJobOptions,
+					attempts: 5,
+					backoff: {
+						type: "fixed",
+						delay: 1000,
+						...(typeof options?.queue?.defaultJobOptions?.backoff === "object"
+							? options?.queue?.defaultJobOptions?.backoff
+							: {}),
+					},
+				},
+			},
+		})
 			.options({
 				limiter: {
 					max: 25,
 					duration: 1000,
 				},
-				...options,
+				...workerOptions,
 			})
 			// TODO: вынести в интерфейс
 			.input<{ type: keyof Types; args: any[] }>()
